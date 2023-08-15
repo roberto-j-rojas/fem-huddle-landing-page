@@ -1,0 +1,217 @@
+@use 'mixins' as *;
+@use 'functions' as *;
+@use 'base';
+@use '_abstracts';
+
+// BREAKPOINTS
+$bp1: 75em; // 1200px
+
+/*
+
+
+#################
+CUSTOM PROPERTIES
+#################
+*/
+
+:root{
+    @include customPropsGeneration;
+
+    /* 
+    Other properties 
+    */
+    --inline-section-padding: var(--size-40);
+    
+    @include width-above($bp1){
+        --inline-section-padding: 5rem;
+    }
+}
+/*
+
+
+##############
+GENERAL STYLES
+##############
+*/
+body{
+    font-family: var(--ff-base);
+    font-size: var(--fs-400);
+    background-color: var(--clr-primary-400);
+    color: var(--clr-neutral-100)
+}
+/*
+
+
+###############
+UTILITY CLASSES
+###############
+*/
+@include utc-sr-only;
+@include utc-flex;
+@include utc-flex-center;
+@include utc-grid;
+
+.primary-heading{
+    font-family: var(--ff-accent);
+    font-size: var(--fs-600);
+    font-weight: var(--fw-bold);
+
+    @include width-above($bp1){
+        font-size: var(--fs-700);
+    }
+}
+
+.button{
+    max-width: toRem(200);
+    min-height: var(--size-40);
+    background-color: var(--clr-neutral-100);
+    color: var(--clr-primary-400);
+    border-radius: 100vmax;
+    font-family: var(--ff-accent);
+    font-size: var(--fs-300);
+    padding: .5em 2em;
+    text-decoration: none;
+    box-shadow: 0 0.5em .5em rgba(0,0,0,0.2);
+
+    @include hover{
+        background-color: var(--clr-primary-300);
+        color: var(--clr-neutral-100);
+    }
+}
+/*
+
+
+#############
+LAYOUT STYLES
+#############
+*/
+body{
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+
+    background-image: url(../images/bg-mobile.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+    @include width-above($bp1){
+        background-image: url(../images/bg-desktop.svg);
+        background-size: cover;
+
+    }
+}
+
+.header{
+    justify-content: flex-start;
+    padding-inline: var(--inline-section-padding);
+    height: clamp(toRem(92), 10vw, toRem(160));
+
+    &__logo{
+        width: clamp(toRem(130), 15vw, toRem(220));
+    }
+}
+
+.main{
+    flex: 1;
+}
+
+.section{
+    flex-direction: column;
+    text-align: center;
+    padding-inline: var(--inline-section-padding);
+
+    @include width-above($bp1){
+        flex-direction: row;
+        text-align: left;
+        gap: 3vw;
+    }
+    
+    &__container{
+        flex: 1;
+    }
+
+    &__img-container{
+        margin-block: var(--size-32);
+
+        @include width-above($bp1){
+            flex-basis: toRem(440);
+            margin-block: 0;
+        }
+    }
+
+    &__img{
+        width: 100%;
+    }
+
+    &__content{
+        @include width-above($bp1){
+            flex-basis: toRem(320);
+        }
+    }
+
+    &__title{
+        margin-top: var(--size-28);
+        margin-bottom: var(--size-16);
+
+        @include width-above($bp1){
+            margin-top: var(--size-64);
+        }
+    }
+
+    &__paragraph{
+        line-height: 1.5;
+        margin-bottom: var(--size-24);
+
+        @include width-above($bp1){
+            font-size: var(--fs-450);
+        }
+    }
+
+    &__button{
+        margin-bottom: var(--size-24);
+        margin-inline: auto;
+
+        @include width-above($bp1){
+            margin-inline: 0;
+            font-size: var(--fs-450);
+            padding: .8em 2em;
+        }
+    }
+}
+
+
+.footer{
+    @include width-above($bp1){
+        position: absolute;
+        right: var(--inline-section-padding);
+        bottom: 0;
+    }
+
+    &__links-list{
+        margin-block: var(--size-36);
+        gap: var(--size-12);
+    }
+
+    &__link-item{
+        list-style: none;
+    }
+
+    &__link{
+        width: var(--size-32);
+        height: var(--size-32);
+        border: 1px solid var(--clr-neutral-100);
+        border-radius: 50%;
+
+        @include width-above($bp1){
+            width: var(--size-40);
+            height: var(--size-40); 
+            font-size: var(--fs-500);
+        }
+
+        @include hover{   
+            color: var(--clr-primary-300);
+            border-color: var(--clr-primary-300);
+        }
+    }
+}
+
